@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "getPca": "npx ts-node-esm computePCA.ts",
+    "testPca": "npx ts-node-esm testPCA.ts"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "ml-matrix": "^6.10.4",
+    "ml-pca": "^4.1.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3"
+  }
+}
