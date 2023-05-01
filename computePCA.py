@@ -1,10 +1,13 @@
 import numpy as np
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 import joblib
+import json
 
 # file path to the output file from extractLandmarks.py
 inputFile = "landmarksLFW.txt"
 savedPCAPath = "pca.pkl"
+savedPCAPathJson = "landmarksPCA.json"
 
 # Create an empty dictionary to store the arrays for each name
 nameArrays = {}
@@ -33,6 +36,8 @@ with open(inputFile, 'r') as f:
 # Close the file
 f.close()
 
+
+
 print("Combining arrays...")
 # Combine the arrays for each name into a final 2D array output
 outputArray = []
@@ -47,11 +52,41 @@ print("Fitting PCA...")
 # Initialize the PCA object
 pca = PCA(n_components=100)
 
+# normalize the data
+# scaler = StandardScaler()
+# outputArray = scaler.fit_transform(outputArray)
+
+
 # Fit the PCA object to the data
 pca.fit(outputArray)
 
 print("Saving PCA...")
 joblib.dump(pca, savedPCAPath)
+
+# take transpoise of U
+newU = pca.components_.T
+
+
+pca_json = {
+    'name': 'PCA',
+    'center': False,
+    'scale': False,
+    'means': [],
+    'stdevs': [],
+    'U': newU.tolist(),
+    'S': pca.singular_values_.tolist()
+}
+
+# Save the JSON object to a file
+with open(savedPCAPathJson, 'w') as f:
+    json.dump(pca_json, f)
+
+# Close the file
+f.close()
+
 print("Saved PCA to " + savedPCAPath + ".")
+print("Saved PCA (json) to " + savedPCAPathJson + ".")
+
+
 
 
