@@ -1,4 +1,4 @@
-# Faze Model
+# Faze Modeling
 
 This is a quick and dirty repo for face recogniton. Developed models will be used in [FAZE ID](https://faze.kryptik.app/). Data analysis is done in Python and saved for web use with languages like Typescript.
 
